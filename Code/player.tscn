@@ -1,0 +1,62 @@
+[gd_scene load_steps=8 format=3 uid="uid://n6ka5rtievpf"]
+
+[ext_resource type="Texture2D" uid="uid://dipsd3esobrty" path="res://Dungeon Crawl Stone Soup Full/Dungeon Crawl Stone Soup Full/monster/gnoll_new.png" id="1_7ah7l"]
+[ext_resource type="Script" path="res://player.gd" id="1_oorh6"]
+[ext_resource type="Texture2D" uid="uid://3htkiel28y1f" path="res://Dungeon Crawl Stone Soup Full/Dungeon Crawl Stone Soup Full/monster/gnoll_old.png" id="2_esa0o"]
+[ext_resource type="Texture2D" uid="uid://cjy3tgj7yttk0" path="res://Dungeon Crawl Stone Soup Full/Dungeon Crawl Stone Soup Full/monster/gnoll_sergeant.png" id="3_15ib1"]
+[ext_resource type="Texture2D" uid="uid://dbvjxn3f6l7lj" path="res://Dungeon Crawl Stone Soup Full/Dungeon Crawl Stone Soup Full/monster/gnoll_shaman.png" id="4_ehjs8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jlfpb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7ah7l")
+}],
+"loop": true,
+"name": &"front",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_esa0o")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_15ib1")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ehjs8")
+}],
+"loop": true,
+"name": &"up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqaba"]
+size = Vector2(25, 29.5)
+
+[node name="Player" type="Area2D"]
+script = ExtResource("1_oorh6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(191, 180)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_jlfpb")
+animation = &"left"
+frame_progress = 0.243785
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D"]
+position = Vector2(1.00003, 1.25001)
+shape = SubResource("RectangleShape2D_aqaba")
+debug_color = Color(0, 0.6, 0.701961, 0.419608)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
