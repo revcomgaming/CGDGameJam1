@@ -34,14 +34,8 @@ shape = SubResource("RectangleShape2D_aqaba")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="SpwpnSingingSword" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(8, 35)
+position = Vector2(8, 18)
 rotation = -0.785398
 texture = ExtResource("3_q5yb3")
-offset = Vector2(13, -13)
-
-[node name="SwordAttackCooldownTimer" type="Timer" parent="."]
-wait_time = 0.5
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="SwordAttackCooldownTimer" to="." method="_on_sword_attack_cooldown_timer_timeout"]
