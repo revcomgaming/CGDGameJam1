@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://n6ka5rtievpf"]
+[gd_scene load_steps=8 format=3 uid="uid://n6ka5rtievpf"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_oorh6"]
-[ext_resource type="PackedScene" uid="uid://d3w5u0n8uqe2p" path="res://arrow.tscn" id="2_nsq3t"]
 [ext_resource type="Texture2D" uid="uid://cjy3tgj7yttk0" path="res://Dungeon Crawl Stone Soup Full/Dungeon Crawl Stone Soup Full/monster/gnoll_sergeant.png" id="3_15ib1"]
-[ext_resource type="PackedScene" uid="uid://bnxi4013q5cdx" path="res://magiceffect.tscn" id="3_n18i6"]
 [ext_resource type="Texture2D" uid="uid://bh020u5j62doj" path="res://crawl-tiles Oct-5-2010/crawl-tiles Oct-5-2010/item/weapon/artefact/spwpn_singing_sword.png" id="3_q5yb3"]
 [ext_resource type="Texture2D" uid="uid://oxu5lys3u8se" path="res://Dungeon Crawl Stone Soup Full/Dungeon Crawl Stone Soup Full/item/weapon/ranged/longbow_1.png" id="4_yxpqk"]
+[ext_resource type="Texture2D" uid="uid://q0jx6v5i3h70" path="res://crawl-tiles Oct-5-2010/crawl-tiles Oct-5-2010/UNUSED/weapons/silver_arrow.png" id="5_7mrli"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jlfpb"]
 animations = [{
@@ -23,8 +22,6 @@ size = Vector2(25, 29.5)
 
 [node name="Player" type="Area2D"]
 script = ExtResource("1_oorh6")
-arrowScene = ExtResource("2_nsq3t")
-magicEffectScene = ExtResource("3_n18i6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(32, 32)
@@ -57,13 +54,12 @@ texture = ExtResource("4_yxpqk")
 [node name="BowInUseCooldownTimer" type="Timer" parent="."]
 wait_time = 0.5
 
-[node name="ArrowMarker" type="Marker2D" parent="."]
-position = Vector2(6, 35)
-
-[node name="MagicInUseCooldownTimer" type="Timer" parent="."]
-wait_time = 3.0
+[node name="Arrow" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(6, 34)
+rotation = 3.92699
+texture = ExtResource("5_7mrli")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="SwordAttackCooldownTimer" to="." method="_on_sword_attack_cooldown_timer_timeout"]
 [connection signal="timeout" from="BowInUseCooldownTimer" to="." method="_on_bow_in_use_cooldown_timeout"]
-[connection signal="timeout" from="MagicInUseCooldownTimer" to="." method="_on_magic_in_use_cooldown_timer_timeout"]
