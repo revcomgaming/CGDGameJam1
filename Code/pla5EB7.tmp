@@ -1,14 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://n6ka5rtievpf"]
+[gd_scene load_steps=10 format=3 uid="uid://n6ka5rtievpf"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_oorh6"]
-[ext_resource type="PackedScene" uid="uid://crs3tnof3toke" path="res://bow.tscn" id="2_m7f6e"]
 [ext_resource type="PackedScene" uid="uid://tqf7nv3hegdk" path="res://sword.tscn" id="2_v2bq3"]
 [ext_resource type="Texture2D" uid="uid://cjy3tgj7yttk0" path="res://Dungeon Crawl Stone Soup Full/Dungeon Crawl Stone Soup Full/monster/gnoll_sergeant.png" id="3_15ib1"]
 [ext_resource type="PackedScene" uid="uid://bnxi4013q5cdx" path="res://magiceffect.tscn" id="3_n18i6"]
 [ext_resource type="Texture2D" uid="uid://bh020u5j62doj" path="res://crawl-tiles Oct-5-2010/crawl-tiles Oct-5-2010/item/weapon/artefact/spwpn_singing_sword.png" id="3_q5yb3"]
 [ext_resource type="PackedScene" uid="uid://d4d8t1vv4wuea" path="res://angel.tscn" id="4_odvbo"]
 [ext_resource type="Texture2D" uid="uid://oxu5lys3u8se" path="res://Dungeon Crawl Stone Soup Full/Dungeon Crawl Stone Soup Full/item/weapon/ranged/longbow_1.png" id="4_yxpqk"]
-[ext_resource type="PackedScene" uid="uid://biew3s48uthfc" path="res://elf.tscn" id="6_bhs3f"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jlfpb"]
 animations = [{
@@ -27,10 +25,8 @@ size = Vector2(25, 29.5)
 [node name="Player" type="Area2D"]
 script = ExtResource("1_oorh6")
 swordScene = ExtResource("2_v2bq3")
-bowScene = ExtResource("2_m7f6e")
 magicEffectScene = ExtResource("3_n18i6")
 angelEnemyScene = ExtResource("4_odvbo")
-elfEnemyScene = ExtResource("6_bhs3f")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(32, 32)

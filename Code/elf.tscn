@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://biew3s48uthfc"]
+
+[ext_resource type="Script" path="res://elf.gd" id="1_41nh8"]
+[ext_resource type="Texture2D" uid="uid://bo4kcuot56i47" path="res://crawl-tiles Oct-5-2010/crawl-tiles Oct-5-2010/dc-mon/deep_elf_master_archer.png" id="1_ogw1g"]
+[ext_resource type="PackedScene" uid="uid://crs3tnof3toke" path="res://bow.tscn" id="2_vnern"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xbwku"]
+size = Vector2(59, 67)
+
+[node name="Node2D" type="Node2D"]
+top_level = true
+script = ExtResource("1_41nh8")
+bowScene = ExtResource("2_vnern")
+
+[node name="Elf" type="Sprite2D" parent="."]
+position = Vector2(33, 33)
+scale = Vector2(2, 2)
+texture = ExtResource("1_ogw1g")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(29.5, 31.5)
+shape = SubResource("RectangleShape2D_xbwku")
+
+[node name="ArrowMarker" type="Marker2D" parent="."]
+position = Vector2(13, 36)

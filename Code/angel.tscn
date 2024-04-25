@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=3 uid="uid://d4d8t1vv4wuea"]
+
+[ext_resource type="Script" path="res://angel.gd" id="1_emd8d"]
+[ext_resource type="Texture2D" uid="uid://bkqaiavuie6uy" path="res://crawl-tiles Oct-5-2010/crawl-tiles Oct-5-2010/dc-mon/angel.png" id="1_h0awj"]
+[ext_resource type="PackedScene" uid="uid://tqf7nv3hegdk" path="res://sword.tscn" id="2_gov4k"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w1fwv"]
+size = Vector2(65, 67.75)
+
+[node name="Node2D" type="Node2D"]
+top_level = true
+script = ExtResource("1_emd8d")
+swordScene = ExtResource("2_gov4k")
+
+[node name="Angel" type="Sprite2D" parent="."]
+position = Vector2(31.5, 33)
+scale = Vector2(2, 2.169)
+texture = ExtResource("1_h0awj")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(32.5, 34.125)
+shape = SubResource("RectangleShape2D_w1fwv")

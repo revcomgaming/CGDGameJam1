@@ -1,17 +1,18 @@
 extends Area2D
 signal hit
 
-@export var arrowScene: PackedScene
+@export var swordScene: PackedScene
+@export var bowScene: PackedScene
 @export var magicEffectScene: PackedScene
+@export var angelEnemyScene: PackedScene
+@export var elfEnemyScene: PackedScene
 
 var screen_size 
 var leftTopEdge
 var rightBottomEdge
+var swordWeapon
+var bowWeapon
 var facingModifier
-var swordIsAttacking
-var bowIsFiring
-var swordNotInCooldown
-var bowNotInCooldown
 var magicNotInCooldown
 
 # Called when the node enters the scene tree for the first time.
@@ -19,18 +20,27 @@ func _ready():
 	screen_size = get_viewport_rect().size
 	leftTopEdge = Vector2(0, 0)
 	rightBottomEdge = Vector2(screen_size[0] - 58, screen_size[1] - 60)
+	swordWeapon = swordScene.instantiate()
+	bowWeapon = bowScene.instantiate()
 	facingModifier = -1
-	swordIsAttacking = false
-	bowIsFiring = false
-	swordNotInCooldown = true
-	bowNotInCooldown = true
 	magicNotInCooldown = true
+	
+	swordWeapon.SetFacing(facingModifier)
+	swordWeapon.SetPositionSides(1, 50)
+	add_child(swordWeapon)
+	
+	bowWeapon.SetFacing(facingModifier)
+	add_child(bowWeapon)
+	
+	SpawnEnemy()
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	var velocity = Vector2.ZERO
 	var mouseLeftButtonClick = Input.is_action_pressed("mouse_left_click")
 	var mouseRightButtonClick = Input.is_action_pressed("mouse_right_click")
+	var swordIsAttacking = swordWeapon.Attacking()
+	var bowIsFiring = bowWeapon.Firing()
 	if Input.is_action_pressed("move_right"):
 		velocity.x += 1
 	if Input.is_action_pressed("move_left"):
@@ -53,55 +63,35 @@ func _process(delta):
 			magicNotInCooldown = false
 			$MagicInUseCooldownTimer.start()
 	else:
-		if mouseLeftButtonClick && swordNotInCooldown && !bowIsFiring:
-			$SpwpnSingingSword.show()
-			swordIsAttacking = true
+		if mouseLeftButtonClick && !bowIsFiring:
+			swordWeapon.StartAttack()
 		
-		if mouseRightButtonClick && bowNotInCooldown && !swordIsAttacking:
-			$Longbow.show()
-			var newArrow = arrowScene.instantiate()
-			newArrow.SetFacingModifier(facingModifier)
-			newArrow.SetTotalDistance(10000)
-			add_child(newArrow)
-			if facingModifier >= 0:
-				newArrow.rotation_degrees = 45
-				$ArrowMarker.position.x = 55
-			else:
-				newArrow.rotation_degrees = 225
-				$ArrowMarker.position.x = 6
-			newArrow.position = $ArrowMarker.global_position
-			bowIsFiring = true
+		if mouseRightButtonClick && !swordIsAttacking:
+			bowWeapon.StartFiring()
 		
 	position += velocity * delta
 	position = position.clamp(leftTopEdge, rightBottomEdge)
-	
-	if swordIsAttacking:
-		$SpwpnSingingSword.rotation_degrees += PI * 300 * delta * facingModifier
-		if (facingModifier >= 1 && $SpwpnSingingSword.rotation_degrees > 135) || $SpwpnSingingSword.rotation_degrees < -225:
-			$SpwpnSingingSword.hide()
-			$SpwpnSingingSword.rotation_degrees = -45
-			swordIsAttacking = false
-			swordNotInCooldown = false
-			$SwordAttackCooldownTimer.start()
-			
-	if bowIsFiring:
-		if bowNotInCooldown:
-			bowNotInCooldown = false
-			$BowInUseCooldownTimer.start()
 	
 	if velocity.x != 0:
 		var flip = velocity.x > 0
 		$AnimatedSprite2D.flip_h = flip
 		if flip:
-			$SpwpnSingingSword.position.x = 58
-			$Longbow.position.x = 50
-			$Longbow.rotation_degrees = -45
+			$ArrowMarker.position.x = 55
 			facingModifier = 1
 		else:
-			$SpwpnSingingSword.position.x = 8
-			$Longbow.position.x = 8
-			$Longbow.rotation_degrees = -225
+			$ArrowMarker.position.x = 6
 			facingModifier = -1
+		swordWeapon.SetFacing(facingModifier)	
+		bowWeapon.SetFacing(facingModifier)
+		
+func SpawnEnemy():
+	var angelEnemy = angelEnemyScene.instantiate()
+	angelEnemy.position = Vector2(100, 400)
+	add_child(angelEnemy)
+	
+	var elfEnemy = elfEnemyScene.instantiate()
+	elfEnemy.position = Vector2(400, 300)
+	add_child(elfEnemy)
 
 func _on_body_entered(body):
 	hide()
@@ -114,14 +104,10 @@ func _on_body_entered(body):
 	#$AnimatedSprite2D/CollisionShape2D.disabled = false
 
 
-func _on_sword_attack_cooldown_timer_timeout():
-	swordNotInCooldown = true
-
-
-func _on_bow_in_use_cooldown_timeout():
-	bowIsFiring = false
-	bowNotInCooldown = true
-	$Longbow.hide()
+#func _on_bow_in_use_cooldown_timeout():
+#	bowIsFiring = false
+#	bowNotInCooldown = true
+#	$Longbow.hide()
 
 
 func _on_magic_in_use_cooldown_timer_timeout():
