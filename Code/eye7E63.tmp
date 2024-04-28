@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://dduti5705qv5l"]
+
+[ext_resource type="Script" path="res://eyeball.gd" id="1_keikl"]
+[ext_resource type="Texture2D" uid="uid://cvjcxwc8lkf48" path="res://crawl-tiles Oct-5-2010/crawl-tiles Oct-5-2010/dc-mon/eye_of_draining.png" id="1_kw2al"]
+[ext_resource type="PackedScene" uid="uid://bnxi4013q5cdx" path="res://magiceffect.tscn" id="2_k4ycs"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_evnje"]
+radius = 14.0
+
+[node name="Node2D" type="Node2D"]
+top_level = true
+script = ExtResource("1_keikl")
+magicEffectScene = ExtResource("2_k4ycs")
+
+[node name="Eyeball" type="Sprite2D" parent="."]
+texture = ExtResource("1_kw2al")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_evnje")
+
+[node name="MagicInUseCooldownTimer" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="timeout" from="MagicInUseCooldownTimer" to="." method="_on_magic_in_use_cooldown_timer_timeout"]

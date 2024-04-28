@@ -3,6 +3,8 @@ extends Node2D
 @export var swordScene: PackedScene
 var mainCharacter
 var swordWeapon
+var leftTopEdge
+var rightBottomEdge
 	
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -11,6 +13,8 @@ func _ready():
 	swordWeapon.SetFacing(-1)
 	swordWeapon.SetPositionSides(5, 40, -2)
 	add_child(swordWeapon)
+	leftTopEdge = mainCharacter.GetTopLeftBounds()
+	rightBottomEdge = mainCharacter.GetBottomRightBounds()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -36,3 +40,4 @@ func _process(delta):
 			else:
 				position.y += 5
 		swordWeapon.StartAttack()
+	position = position.clamp(leftTopEdge, rightBottomEdge)

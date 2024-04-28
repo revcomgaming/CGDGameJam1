@@ -6,6 +6,7 @@ signal hit
 @export var magicEffectScene: PackedScene
 @export var angelEnemyScene: PackedScene
 @export var elfEnemyScene: PackedScene
+@export var eyeEnemyScene: PackedScene
 
 var screen_size 
 var leftTopEdge
@@ -85,13 +86,22 @@ func _process(delta):
 		bowWeapon.SetFacing(facingModifier)
 		
 func SpawnEnemy():
-	var angelEnemy = angelEnemyScene.instantiate()
-	angelEnemy.position = Vector2(100, 400)
-	add_child(angelEnemy)
+	var rand = RandomNumberGenerator.new()
+	var numOfEnemies = rand.randi_range(5, 10)
+	var enemyTypes = [angelEnemyScene, elfEnemyScene, eyeEnemyScene]
+	var enemy
 	
-	var elfEnemy = elfEnemyScene.instantiate()
-	elfEnemy.position = Vector2(400, 300)
-	add_child(elfEnemy)
+	for index in numOfEnemies:
+		enemy = enemyTypes[rand.randi_range(0, 2)].instantiate()
+		enemy.position = Vector2(rand.randi_range(leftTopEdge.x, rightBottomEdge.x),
+								 rand.randi_range(leftTopEdge.y, rightBottomEdge.y));
+		add_child(enemy)
+	
+func GetTopLeftBounds():
+	return leftTopEdge
+	
+func GetBottomRightBounds():
+	return rightBottomEdge
 
 func _on_body_entered(body):
 	hide()

@@ -22,7 +22,6 @@ rotation = 0.785398
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SpwpnSingingSword/RigidBody2D"]
 position = Vector2(8, 13)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_sl610")
 
 [node name="SwordAttackCoolDownTimer" type="Timer" parent="."]

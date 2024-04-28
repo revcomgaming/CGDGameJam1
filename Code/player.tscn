@@ -1,14 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://n6ka5rtievpf"]
+[gd_scene load_steps=11 format=3 uid="uid://n6ka5rtievpf"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_oorh6"]
 [ext_resource type="PackedScene" uid="uid://crs3tnof3toke" path="res://bow.tscn" id="2_m7f6e"]
 [ext_resource type="PackedScene" uid="uid://tqf7nv3hegdk" path="res://sword.tscn" id="2_v2bq3"]
 [ext_resource type="Texture2D" uid="uid://cjy3tgj7yttk0" path="res://Dungeon Crawl Stone Soup Full/Dungeon Crawl Stone Soup Full/monster/gnoll_sergeant.png" id="3_15ib1"]
 [ext_resource type="PackedScene" uid="uid://bnxi4013q5cdx" path="res://magiceffect.tscn" id="3_n18i6"]
-[ext_resource type="Texture2D" uid="uid://bh020u5j62doj" path="res://crawl-tiles Oct-5-2010/crawl-tiles Oct-5-2010/item/weapon/artefact/spwpn_singing_sword.png" id="3_q5yb3"]
 [ext_resource type="PackedScene" uid="uid://d4d8t1vv4wuea" path="res://angel.tscn" id="4_odvbo"]
-[ext_resource type="Texture2D" uid="uid://oxu5lys3u8se" path="res://Dungeon Crawl Stone Soup Full/Dungeon Crawl Stone Soup Full/item/weapon/ranged/longbow_1.png" id="4_yxpqk"]
 [ext_resource type="PackedScene" uid="uid://biew3s48uthfc" path="res://elf.tscn" id="6_bhs3f"]
+[ext_resource type="PackedScene" uid="uid://dduti5705qv5l" path="res://eyeball.tscn" id="7_n60nm"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jlfpb"]
 animations = [{
@@ -31,6 +30,7 @@ bowScene = ExtResource("2_m7f6e")
 magicEffectScene = ExtResource("3_n18i6")
 angelEnemyScene = ExtResource("4_odvbo")
 elfEnemyScene = ExtResource("6_bhs3f")
+eyeEnemyScene = ExtResource("7_n60nm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(32, 32)
@@ -44,22 +44,6 @@ position = Vector2(1.00003, 1.25001)
 shape = SubResource("RectangleShape2D_aqaba")
 debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
-[node name="SpwpnSingingSword" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(8, 35)
-rotation = -0.785398
-texture = ExtResource("3_q5yb3")
-offset = Vector2(13, -13)
-
-[node name="Longbow" type="Sprite2D" parent="."]
-visible = false
-position = Vector2(12, 35)
-rotation = -3.92699
-texture = ExtResource("4_yxpqk")
-
-[node name="BowInUseCooldownTimer" type="Timer" parent="."]
-wait_time = 0.5
-
 [node name="ArrowMarker" type="Marker2D" parent="."]
 position = Vector2(6, 35)
 
@@ -67,5 +51,4 @@ position = Vector2(6, 35)
 wait_time = 3.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
-[connection signal="timeout" from="BowInUseCooldownTimer" to="." method="_on_bow_in_use_cooldown_timeout"]
 [connection signal="timeout" from="MagicInUseCooldownTimer" to="." method="_on_magic_in_use_cooldown_timer_timeout"]
