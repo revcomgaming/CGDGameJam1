@@ -1,17 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://bj08l3bbislo5"]
+[gd_scene load_steps=3 format=3 uid="uid://bj08l3bbislo5"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_fd1ga"]
-[ext_resource type="PackedScene" uid="uid://n6ka5rtievpf" path="res://player.tscn" id="2_0ar78"]
-[ext_resource type="PackedScene" uid="uid://vkwwi34cn4i3" path="res://mob.tscn" id="2_fbo32"]
 [ext_resource type="Texture2D" uid="uid://b0q1ib6hj87if" path="res://crawl-tiles Oct-5-2010/crawl-tiles Oct-5-2010/dc-dngn/wall/pebble_red0.png" id="4_tgw57"]
 
 [node name="main" type="Node2D"]
+top_level = true
 y_sort_enabled = true
 script = ExtResource("1_fd1ga")
-mob_scene = ExtResource("2_fbo32")
-
-[node name="Player" parent="." instance=ExtResource("2_0ar78")]
-position = Vector2(0, -2)
 
 [node name="MobTimer" type="Timer" parent="."]
 wait_time = 0.5

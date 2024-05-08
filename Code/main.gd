@@ -1,11 +1,11 @@
 extends Node2D
 
-@export var mob_scene: PackedScene
-
+var mainCharacter
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	mainCharacter = get_node("/root/Player")
+	$Label2.position = Vector2(get_viewport_rect().size[0]- 150, get_viewport_rect().size[1] - 50)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

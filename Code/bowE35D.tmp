@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://crs3tnof3toke"]
+
+[ext_resource type="Script" path="res://bow.gd" id="1_83mbj"]
+[ext_resource type="PackedScene" uid="uid://d3w5u0n8uqe2p" path="res://arrow.tscn" id="2_sr6ji"]
+[ext_resource type="Texture2D" uid="uid://oxu5lys3u8se" path="res://Dungeon Crawl Stone Soup Full/Dungeon Crawl Stone Soup Full/item/weapon/ranged/longbow_1.png" id="3_guemc"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_83mbj")
+arrowScene = ExtResource("2_sr6ji")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(7, 0)
+rotation = 2.35619
+texture = ExtResource("3_guemc")
+
+[node name="BowCoolDownTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="timeout" from="BowCoolDownTimer" to="." method="_on_bow_cool_down_timer_timeout"]

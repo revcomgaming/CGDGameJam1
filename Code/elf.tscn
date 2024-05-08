@@ -7,21 +7,27 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xbwku"]
 size = Vector2(59, 67)
 
-[node name="Node2D" type="Node2D"]
+[node name="Elf" type="Area2D"]
 top_level = true
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_41nh8")
 bowScene = ExtResource("2_vnern")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(29.5, 31.5)
+shape = SubResource("RectangleShape2D_xbwku")
 
 [node name="Elf" type="Sprite2D" parent="."]
 position = Vector2(33, 33)
 scale = Vector2(2, 2)
 texture = ExtResource("1_ogw1g")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2(29.5, 31.5)
-shape = SubResource("RectangleShape2D_xbwku")
-
 [node name="ArrowMarker" type="Marker2D" parent="."]
 position = Vector2(13, 36)
+
+[node name="StunnedTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="StunnedTimer" to="." method="_on_stunned_timer_timeout"]

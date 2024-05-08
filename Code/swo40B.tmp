@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=3 uid="uid://tqf7nv3hegdk"]
+
+[ext_resource type="Texture2D" uid="uid://bh020u5j62doj" path="res://crawl-tiles Oct-5-2010/crawl-tiles Oct-5-2010/item/weapon/artefact/spwpn_singing_sword.png" id="1_6pl4p"]
+[ext_resource type="Script" path="res://sword.gd" id="1_pecxt"]
+[ext_resource type="Script" path="res://Sword - RigidBody.gd" id="3_1t0b7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sl610"]
+size = Vector2(7, 30)
+
+[node name="Sword" type="Area2D"]
+visible = false
+script = ExtResource("1_pecxt")
+
+[node name="SpwpnSingingSword" type="Sprite2D" parent="."]
+position = Vector2(8, 35)
+rotation = -0.785398
+texture = ExtResource("1_6pl4p")
+offset = Vector2(10, -10)
+
+[node name="Sword - RigidBody" type="RigidBody2D" parent="SpwpnSingingSword"]
+position = Vector2(19.0919, -30.4056)
+rotation = 0.785398
+collision_mask = 0
+max_contacts_reported = 1000
+contact_monitor = true
+script = ExtResource("3_1t0b7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SpwpnSingingSword/Sword - RigidBody"]
+position = Vector2(8, 13)
+shape = SubResource("RectangleShape2D_sl610")
+
+[node name="SwordAttackCoolDownTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="hit" from="." to="." method="_on_hit"]
+[connection signal="body_entered" from="SpwpnSingingSword/Sword - RigidBody" to="." method="_on_sword__rigid_body_body_entered"]
+[connection signal="timeout" from="SwordAttackCoolDownTimer" to="." method="_on_sword_attack_cool_down_timer_timeout"]

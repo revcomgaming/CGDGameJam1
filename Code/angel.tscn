@@ -7,8 +7,10 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_w1fwv"]
 size = Vector2(65, 67.75)
 
-[node name="Node2D" type="Node2D"]
+[node name="Angel" type="Area2D"]
 top_level = true
+collision_layer = 2
+collision_mask = 2
 script = ExtResource("1_emd8d")
 swordScene = ExtResource("2_gov4k")
 
@@ -17,8 +19,12 @@ position = Vector2(31.5, 33)
 scale = Vector2(2, 2.169)
 texture = ExtResource("1_h0awj")
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(32.5, 34.125)
 shape = SubResource("RectangleShape2D_w1fwv")
+
+[node name="StunnedTimer" type="Timer" parent="."]
+wait_time = 2.0
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="timeout" from="StunnedTimer" to="." method="_on_stunned_timer_timeout"]

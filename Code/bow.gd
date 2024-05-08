@@ -6,6 +6,7 @@ var arrowMarker
 var facingModifier
 var isFiring = false
 var bowNotInCooldown = true
+var isPlayer = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -38,6 +39,8 @@ func StartFiring():
 		var newArrow = arrowScene.instantiate()
 		newArrow.SetFacingModifier(facingModifier)
 		newArrow.SetTotalDistance(10000)
+		if isPlayer:
+			newArrow.IsPlayer()
 		add_child(newArrow)
 		if facingModifier >= 0:
 			newArrow.rotation_degrees = 45
@@ -52,6 +55,9 @@ func StartFiring():
 
 func Firing():
 	return isFiring
+	
+func IsPlayer():
+	isPlayer = true
 
 func _on_bow_cool_down_timer_timeout():
 	bowNotInCooldown = true # Replace with function body.

@@ -9,6 +9,9 @@
 [ext_resource type="PackedScene" uid="uid://biew3s48uthfc" path="res://elf.tscn" id="6_bhs3f"]
 [ext_resource type="PackedScene" uid="uid://dduti5705qv5l" path="res://eyeball.tscn" id="7_n60nm"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_32e1n"]
+size = Vector2(28, 31)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_jlfpb"]
 animations = [{
 "frames": [{
@@ -20,9 +23,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_aqaba"]
-size = Vector2(25, 29.5)
-
 [node name="Player" type="Area2D"]
 script = ExtResource("1_oorh6")
 swordScene = ExtResource("2_v2bq3")
@@ -32,17 +32,16 @@ angelEnemyScene = ExtResource("4_odvbo")
 elfEnemyScene = ExtResource("6_bhs3f")
 eyeEnemyScene = ExtResource("7_n60nm")
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(33, 33)
+scale = Vector2(2, 2)
+shape = SubResource("RectangleShape2D_32e1n")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(32, 32)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_jlfpb")
 animation = &"mc"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D"]
-visible = false
-position = Vector2(1.00003, 1.25001)
-shape = SubResource("RectangleShape2D_aqaba")
-debug_color = Color(0, 0.6, 0.701961, 0.419608)
 
 [node name="ArrowMarker" type="Marker2D" parent="."]
 position = Vector2(6, 35)
@@ -50,5 +49,39 @@ position = Vector2(6, 35)
 [node name="MagicInUseCooldownTimer" type="Timer" parent="."]
 wait_time = 3.0
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[node name="Label" type="Label" parent="."]
+visible = false
+z_index = 100
+offset_left = -105.0
+offset_top = -14.0
+offset_right = 207.0
+offset_bottom = 69.0
+theme_override_constants/shadow_outline_size = 5
+theme_override_font_sizes/font_size = 60
+text = "You Lose..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="."]
+offset_left = -30.0
+offset_top = -28.0
+offset_right = 10.0
+offset_bottom = -5.0
+text = "HP: "
+
+[node name="Restart" type="Button" parent="."]
+visible = false
+offset_left = 169.0
+offset_top = -70.0
+offset_right = 313.0
+offset_bottom = -21.0
+disabled = true
+text = "RESTART"
+
+[node name="StunnedTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="timeout" from="MagicInUseCooldownTimer" to="." method="_on_magic_in_use_cooldown_timer_timeout"]
+[connection signal="pressed" from="Restart" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="StunnedTimer" to="." method="_on_stunned_timer_timeout"]

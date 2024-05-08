@@ -1,7 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://bnxi4013q5cdx"]
+[gd_scene load_steps=3 format=3 uid="uid://bnxi4013q5cdx"]
 
 [ext_resource type="Script" path="res://magiceffect.gd" id="1_cmtvd"]
 
-[node name="Node2D" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_ebucq"]
+
+[node name="Shockwave" type="Area2D"]
 top_level = true
 script = ExtResource("1_cmtvd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ebucq")

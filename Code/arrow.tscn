@@ -1,10 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://d3w5u0n8uqe2p"]
+[gd_scene load_steps=4 format=3 uid="uid://d3w5u0n8uqe2p"]
 
 [ext_resource type="Script" path="res://arrow.gd" id="1_vur67"]
 [ext_resource type="Texture2D" uid="uid://q0jx6v5i3h70" path="res://crawl-tiles Oct-5-2010/crawl-tiles Oct-5-2010/UNUSED/weapons/silver_arrow.png" id="2_rm5u0"]
 
-[node name="Area2D" type="Area2D"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_smwwt"]
+size = Vector2(33.2415, 7.7055)
+
+[node name="Arrow" type="Area2D"]
 script = ExtResource("1_vur67")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_rm5u0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.04021, -2.49919)
+rotation = -0.765287
+shape = SubResource("RectangleShape2D_smwwt")
